@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+{#<div id="wrapper">#}
+    {#<div id="container">#}
+        {#<table border="1px">#}
+
+                {#{% for key,value in liste_user %}#}
+                {#<tr><td>{{ value.id }}</td>#}
+                    {#<td>{{ value.username }}</td>#}
+                    {#<td>{{ value.email }}</td>#}
+                    {#<td>{{ value.date|date('Y-m-d') }}</td></tr>#}
+                {#{% endfor %}#}
+
+        {#</table>>#}
+    {#</div>#}
+{#</div>#}
+
+    {# total items count #}
+    <div class="count">
+        {{ pagination.getTotalItemCount }}
+    </div>
+    <table>
+        <tr>
+            {# sorting of properties based on query components #}
+            <th>{{ knp_pagination_sortable(pagination, 'Id', 'user.id') }}</th>
+            <th{% if pagination.isSorted('user.Title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Title', 'user.title') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'Release', ['user.date', 'user.time']) }}</th>
+        </tr>
+
+        {# table body #}
+        {% for user in pagination %}
+            <tr {% if loop.index is odd %}class="color"{% endif %}>
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.password }}</td>
+                <td>{{ user.date | date('Y-m-d')  }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    {# display navigation #}
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+{% endblock %}
