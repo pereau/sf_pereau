@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {# total items count #}
+    <style>
+
+
+        td{
+            border:solid;
+        }
+
+        tr{
+            border:solid;
+        }
+        th {
+             border:solid;
+         }
+
+     </style>
+    <div class="count">
+        {{ pagination.getTotalItemCount }} {# affiche le nombre d'objets sélectionnés #}
+    </div>
+    <table>
+        <tr>
+            {# sorting of properties based on query components #}
+            <th>{{ knp_pagination_sortable(pagination, 'Id', 'user.id') }}</th>
+            <th{% if pagination.isSorted('user.Title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Username', 'user.title') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'email', ['user.date', 'user.time']) }}</th>
+        </tr>
+
+        {# table body #}
+        {% for user in pagination %} {# user représente la variable utilisée pour balayer l'ensemble des élément du tableau pagination  #}
+            <tr {% if loop.index is odd %}class="color"{% endif %}>
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.password }}</td>
+                <td>{{ user.date | date('Y-m-d')  }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    {# display navigation #}
+    <div class="navigation">
+        {{ knp_pagination_render(pagination, '@KnpPaginator/Pagination/twitter_bootstrap_v3_pagination.html.twig') }} {# barre de sélection des pages # }
+    </div>
+{% endblock %}

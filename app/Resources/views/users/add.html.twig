@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% form_them form 'bootstrap_3_layout.html.twig' %}
+    <div id="wrapper">
+        <div id="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    {% form_start(form) %}
+                    {% form_widget(form) %}
+                    <input type="submit" value="create" />
+                    {% form_end(form) %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
